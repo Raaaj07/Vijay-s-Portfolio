@@ -1,0 +1,137 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import Marquee from "./Marquee";
+import FloatingShapes from "./FloatingShapes";
+import { SITE, ROLES } from "@/lib/data";
+import { useMouseParallax } from "@/lib/mouse-parallax";
+
+export default function Hero() {
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+  const { x, y } = useMouseParallax();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex((i) => (i + 1) % ROLES.length);
+    }, 2200);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative w-full h-full min-h-screen bg-[var(--bg-dark)] flex flex-col items-center justify-center px-4">
+      {/* Background marquee — bold, near-solid white, drifts opposite the cursor for depth */}
+      <div
+        className="absolute inset-0 flex items-center opacity-90 z-0 text-[var(--text-dark)]"
+        style={{
+          transform: `translate3d(${x * 14}px, ${y * 10}px, 0)`,
+          transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+        }}
+      >
+        <Marquee text={SITE.name} />
+      </div>
+
+      <FloatingShapes />
+
+      {/* Foreground content — subtle tilt toward the cursor */}
+      <div
+        className="relative z-10 flex flex-col items-center text-center pt-16 sm:pt-10"
+        style={{
+          transform: `translate3d(${x * 8}px, ${y * 6}px, 0)`,
+          transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+        }}
+      >
+        <h1 className="font-display font-bold text-[clamp(2rem,6vw,3.75rem)] leading-tight">
+          Hi, I&apos;m {SITE.name}!
+        </h1>
+
+        <div className="mt-4 h-10 flex items-center justify-center">
+          <div className="relative overflow-hidden rounded-full border border-white/15 bg-white/5 px-5 py-2 min-w-[220px] flex items-center justify-center">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={ROLES[roleIndex]}
+                initial={{ y: 16, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -16, opacity: 0 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="text-sm font-medium text-[var(--text-dark-muted)] whitespace-nowrap"
+              >
+                {ROLES[roleIndex]}
+              </motion.span>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Profile flip card */}
+        <div
+          className="mt-8 flip-card-scene w-40 h-40 sm:w-48 sm:h-48 cursor-pointer group"
+          onClick={() => setFlipped((f) => !f)}
+          onMouseEnter={() => setFlipped(true)}
+          onMouseLeave={() => setFlipped(false)}
+        >
+          <div className={`relative w-full h-full flip-card-inner ${flipped ? "is-flipped" : ""}`}>
+            {/* Front: square rounded photo */}
+            <div className="absolute inset-0 flip-card-face rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.02]">
+              {/* EDIT ME: replace with next/image + real photo at /public/profile.jpg */}
+              <div className="w-full h-full flex items-center justify-center text-xs text-[var(--text-dark-muted)] text-center px-4">
+                Profile photo
+                <br />
+                (drop into /public/profile.jpg)
+              </div>
+            </div>
+
+            {/* Back: circular badge, curved rotating text + bouncing arrow */}
+            <div className="absolute inset-0 flip-card-face flip-card-back rounded-full overflow-hidden bg-[var(--accent-violet)] flex items-center justify-center">
+              <div className="absolute inset-0 animate-spin-slow">
+                <svg viewBox="0 0 200 200" className="w-full h-full">
+                  <defs>
+                    <path
+                      id="circlePath"
+                      d="M 100,100 m -74,0 a 74,74 0 1,1 148,0 a 74,74 0 1,1 -148,0"
+                    />
+                  </defs>
+                  <text fill="white" fontSize="11" letterSpacing="2" className="font-display uppercase">
+                    <textPath href="#circlePath" startOffset="0%">
+                      SCROLL DOWN AND KNOW ME BETTER • SCROLL DOWN AND KNOW ME BETTER •
+                    </textPath>
+                  </text>
+                </svg>
+              </div>
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+                className="relative z-10 w-9 h-9 rounded-full bg-white/20 flex items-center justify-center"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+                  <path d="M12 5v14M5 12l7 7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+
+        {/* Social proof + CTA */}
+        <div className="mt-7 flex items-center gap-3">
+          <div className="flex -space-x-3">
+            {["#7C5CFC", "#3FE0D0", "#FF6B6B", "#FFB238"].map((c, i) => (
+              <div
+                key={i}
+                className="w-8 h-8 rounded-full border-2 border-[var(--bg-dark)]"
+                style={{ background: c }}
+              />
+            ))}
+          </div>
+          <span className="text-sm text-[var(--text-dark-muted)]">50+ Happy Clients</span>
+        </div>
+
+        <a
+          href="#contact"
+          className="mt-6 inline-flex items-center gap-2 rounded-full bg-white text-black px-6 py-3 text-sm font-semibold hover:bg-[var(--accent-violet)] hover:text-white transition-colors duration-300"
+        >
+          Let&apos;s Work Together!
+        </a>
+      </div>
+    </div>
+  );
+}

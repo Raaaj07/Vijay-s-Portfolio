@@ -1,0 +1,153 @@
+@import "tailwindcss";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/inter";
+
+:root {
+  /* ── Color tokens ─────────────────────────────────────────── */
+  --bg-dark: #0a0a0c;
+  --bg-dark-2: #111114;
+  --text-dark: #f3f2f0;
+  --text-dark-muted: #94949c;
+
+  --bg-light: #f1efe8;
+  --text-light: #121214;
+  --text-light-muted: #5c5b60;
+
+  --accent-violet: #7c5cfc;
+  --accent-cyan: #3fe0d0;
+  --accent-coral: #ff6b6b;
+  --accent-amber: #ffb238;
+  --accent-blue: #4c8dff;
+  --accent-pink: #ff5fa8;
+
+  --radius-card: 2.25rem;
+
+  --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg-dark);
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--accent-violet);
+  color: white;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* ── Marquee ──────────────────────────────────────────────── */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 26s linear infinite;
+  will-change: transform;
+}
+
+/* ── Floating shape idle animations ──────────────────────────*/
+@keyframes float-a {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -22px, 0) rotate(8deg); }
+}
+@keyframes float-b {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(10px, 16px, 0) rotate(-10deg); }
+}
+@keyframes float-c {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate3d(-14px, -10px, 0) rotate(6deg) scale(1.04); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes spin-slower {
+  from { transform: rotate3d(0.4, 1, 0, 0deg); }
+  to { transform: rotate3d(0.4, 1, 0, 360deg); }
+}
+@keyframes rotate-shape {
+  0% { transform: rotate3d(0.5, 1, 0.2, 0deg); }
+  100% { transform: rotate3d(0.5, 1, 0.2, 360deg); }
+}
+
+.animate-float-a { animation: float-a 7s ease-in-out infinite; }
+.animate-float-b { animation: float-b 8.5s ease-in-out infinite; }
+.animate-float-c { animation: float-c 6.2s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 18s linear infinite; }
+.animate-spin-slower { animation: spin-slower 26s linear infinite; }
+.animate-rotate-shape { animation: rotate-shape 9s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .animate-float-a,
+  .animate-float-b,
+  .animate-float-c,
+  .animate-spin-slow,
+  .animate-spin-slower,
+  .animate-rotate-shape {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── Flip card ────────────────────────────────────────────── */
+.flip-card-scene {
+  perspective: 1400px;
+}
+.flip-card-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.flip-card-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+.flip-card-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* ── Contact custom cursor ────────────────────────────────── */
+@media (pointer: fine) {
+  .contact-cursor-none,
+  .contact-cursor-none a,
+  .contact-cursor-none button {
+    cursor: none;
+  }
+}
+
+/* ── Utility ──────────────────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
