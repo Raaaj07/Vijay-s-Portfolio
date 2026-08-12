@@ -122,22 +122,22 @@ export default function About() {
             className="absolute inset-0"
             style={{ zIndex: i + 1 }}
           >
+            {/* Ambient glow — sibling behind the card, not a child of it */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -inset-10 -z-10 rounded-[2.5rem] blur-3xl opacity-40"
+              style={{ background: GLOWS[i % GLOWS.length] }}
+            />
             <motion.div
               whileHover={{ rotate: 0, scale: 1.02 }}
               transition={{ duration: 0.2 }}
-              className="w-full h-full rounded-[2rem] bg-[var(--text-dark)] text-[#17161a] px-7 py-8 sm:px-11 sm:py-10 shadow-2xl cursor-default flex flex-col justify-center"
+              className="relative w-full h-full rounded-[2rem] bg-white text-[#17161a] px-7 py-8 sm:px-11 sm:py-10 shadow-2xl cursor-default flex flex-col justify-center"
               style={{
                 transformOrigin: "center center",
                 rotate: ROTATIONS[i % ROTATIONS.length],
                 x: SHIFTS[i % SHIFTS.length],
               }}
             >
-              {/* Ambient colorful glow bleeding from behind the card */}
-              <div
-                aria-hidden="true"
-                className="absolute -inset-8 -z-10 rounded-[2.5rem] blur-3xl opacity-70"
-                style={{ background: GLOWS[i % GLOWS.length] }}
-              />
               <p className="text-base sm:text-lg leading-relaxed text-center">
                 {card.emoji && <span className="mr-1">{card.emoji}</span>}
                 {card.lead && <span className="font-semibold">{card.lead} </span>}

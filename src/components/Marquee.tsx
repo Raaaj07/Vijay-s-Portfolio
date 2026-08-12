@@ -7,20 +7,44 @@ type MarqueeProps = {
 };
 
 export default function Marquee({ text, className = "", outline = false }: MarqueeProps) {
-  const repeated = Array.from({ length: 6 });
+  const repeated = Array.from({ length: 8 });
 
   return (
-    <div className={`w-full overflow-hidden select-none pointer-events-none ${className}`} aria-hidden="true">
+    <div
+      className={`w-full overflow-hidden select-none pointer-events-none ${className}`}
+      aria-hidden="true"
+    >
       <div className="marquee-track">
         {repeated.map((_, i) => (
           <span
             key={i}
-            className={`font-display font-bold shrink-0 px-6 sm:px-8 leading-none ${
-              outline ? "text-transparent [-webkit-text-stroke:1px_currentColor]" : ""
-            }`}
-            style={{ fontSize: "clamp(3.5rem, 14vw, 11rem)" }}
+            className={`shrink-0 leading-none uppercase inline-flex items-center ${outline ? "text-transparent [-webkit-text-stroke:2px_currentColor]" : ""
+              }`}
+            style={{
+              fontFamily: "var(--font-marquee)",
+              fontSize: "clamp(6rem, 20vw, 12rem)",
+              fontWeight: 400,
+              letterSpacing: "0.01em",
+              whiteSpace: "nowrap",
+              padding: "0 0.12em",
+            }}
           >
-            {text}
+            {text.toUpperCase()}
+            <span
+              aria-hidden="true"
+              style={{
+                display: "inline-block",
+                lineHeight: 1,
+                marginTop : "5em",
+                margin: "0 0.25em",
+                fontSize: "0.25em",
+                verticalAlign: "middle",
+                position: "relative",
+                top: "10em",
+              }}
+            >
+              ●
+            </span>
           </span>
         ))}
       </div>

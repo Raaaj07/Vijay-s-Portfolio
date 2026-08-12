@@ -14,7 +14,7 @@ export const SITE = {
   linkedin: "https://www.linkedin.com/in/vijay-raj-p2004/",
   github: "https://github.com/Raaaj07",
   // EDIT ME — add real profile photo to /public/profile.jpg and it will show automatically
-  profileImage: "/profile.jpg",
+  profileImage: "portfolio\public\profile.jpg",
   // EDIT ME — add a real hosted PDF (e.g. /resume.pdf in /public, or a Drive link)
   resumeLink: "#",
 };
@@ -48,15 +48,17 @@ export const ABOUT_CARDS: AboutCard[] = [
 
 export const STACK = [
   { name: "React.js", tag: "Frontend", desc: "Component-driven UIs, hooks, and state management for fast, interactive frontends.", icon: "react", color: "#61DAFB" },
-  { name: "Node.js", tag: "Backend", desc: "Server-side JavaScript runtime powering REST APIs and backend services.", icon: "node", color: "#3C873A" },
-  { name: "Express.js", tag: "Backend", desc: "Minimal routing and middleware layer for building REST APIs quickly.", icon: "express", color: "#1a1a1a" },
+  { name: "Node.js", tag: "Backend", desc: "Server-side JavaScript runtime powering REST APIs and backend services.", icon: "nodedotjs", color: "#339933" },
+  { name: "Express.js", tag: "Backend", desc: "Minimal routing and middleware layer for building REST APIs quickly.", icon: "express", color: "#000000" },
   { name: "MongoDB", tag: "Database", desc: "Document database used for flexible, schema-driven CRUD workflows.", icon: "mongodb", color: "#47A248" },
-  { name: "MySQL", tag: "Database", desc: "Relational database for structured, query-heavy application data.", icon: "mysql", color: "#00758F" },
-  { name: "JavaScript", tag: "Language", desc: "Core language for everything from UI logic to API handlers.", icon: "javascript", color: "#F0DB4F" },
-  { name: "Java", tag: "Language", desc: "OOP fundamentals and backend logic, from coursework to coding practice.", icon: "java", color: "#EA2D2E" },
-  { name: "Figma", tag: "Design", desc: "Interface design and prototyping for responsive, user-friendly layouts.", icon: "figma", color: "#A259FF" },
+  { name: "MySQL", tag: "Database", desc: "Relational database for structured, query-heavy application data.", icon: "mysql", color: "#4479A1" },
+  { name: "JavaScript", tag: "Language", desc: "Core language for everything from UI logic to API handlers.", icon: "javascript", color: "#F7DF1E" },
+  { name: "Java", tag: "Language", desc: "OOP fundamentals and backend logic, from coursework to coding practice.", icon: "openjdk", color: "#437291" },
+  { name: "Figma", tag: "Design", desc: "Interface design and prototyping for responsive, user-friendly layouts.", icon: "figma", color: "#F24E1E" },
   { name: "Canva", tag: "Design", desc: "Quick visual assets and mockups for design-first project pitches.", icon: "canva", color: "#00C4CC" },
   { name: "Git & GitHub", tag: "Tooling", desc: "Version control and collaboration across every team project.", icon: "git", color: "#F05032" },
+  { name: "HTML5", tag: "Markup", desc: "Semantic, accessible markup structuring every page and component.", icon: "html5", color: "#E34F26" },
+  { name: "CSS3", tag: "Styling", desc: "Responsive layouts, animations, and design systems built with modern CSS.", icon: "css3", color: "#1572B6" },
 ];
 
 export const SERVICES = [

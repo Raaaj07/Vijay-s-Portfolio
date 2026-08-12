@@ -7,77 +7,6 @@ import { STACK } from "@/lib/data";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Simple, generic glyphs (not brand logotypes) themed per technology —
-// enough to be instantly recognizable without reproducing trademarked marks.
-const ICONS: Record<string, React.ReactNode> = {
-  react: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
-      <circle cx="24" cy="24" r="4.5" fill="currentColor" />
-      <g stroke="currentColor" strokeWidth="2">
-        <ellipse cx="24" cy="24" rx="19" ry="7.5" />
-        <ellipse cx="24" cy="24" rx="19" ry="7.5" transform="rotate(60 24 24)" />
-        <ellipse cx="24" cy="24" rx="19" ry="7.5" transform="rotate(120 24 24)" />
-      </g>
-    </svg>
-  ),
-  node: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
-      <path d="M24 4 42 14v20L24 44 6 34V14z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
-      <path d="M24 15v18M17 19l14 10M31 19l-14 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  ),
-  express: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
-      <path d="M14 14 4 24l10 10M34 14l10 10-10 10M28 12l-8 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  ),
-  mongodb: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
-      <path d="M24 4c8 6 12 14 12 22a12 12 0 01-24 0c0-8 4-16 12-22z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
-      <path d="M24 26V44" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-    </svg>
-  ),
-  mysql: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
-      <ellipse cx="24" cy="12" rx="16" ry="6" stroke="currentColor" strokeWidth="2.5" />
-      <path d="M8 12v12c0 3.3 7.2 6 16 6s16-2.7 16-6V12M8 24v12c0 3.3 7.2 6 16 6s16-2.7 16-6V24" stroke="currentColor" strokeWidth="2.5" />
-    </svg>
-  ),
-  javascript: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
-      <rect x="5" y="5" width="38" height="38" rx="6" stroke="currentColor" strokeWidth="2.5" />
-      <path d="M18 18v14c0 3-2 4-4.5 3M32 18v11.5c0 3.5-4 4.5-6.5 2" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-    </svg>
-  ),
-  java: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
-      <path d="M15 30c-4 3 0 6 8 6 10 0 16-3 16-7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-      <path d="M20 6c-6 6 10 10 2 18" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-      <rect x="14" y="34" width="20" height="6" rx="2" stroke="currentColor" strokeWidth="2.2" />
-    </svg>
-  ),
-  figma: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
-      <circle cx="30" cy="24" r="6" stroke="currentColor" strokeWidth="2.2" />
-      <path d="M18 6h6a6 6 0 010 12h-6zM18 18h6a6 6 0 010 12h-6a6 6 0 010-12zM18 30h6a6 6 0 010 12 6 6 0 01-6-6z" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round" />
-    </svg>
-  ),
-  canva: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
-      <circle cx="24" cy="24" r="19" stroke="currentColor" strokeWidth="2.5" />
-      <path d="M15 27c0 5 4 8 8 5 2-1.5 3-4 3.5-7M27 20c1.5-3 5-4 7-1.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-    </svg>
-  ),
-  git: (
-    <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
-      <circle cx="14" cy="10" r="4" stroke="currentColor" strokeWidth="2.2" />
-      <circle cx="14" cy="38" r="4" stroke="currentColor" strokeWidth="2.2" />
-      <circle cx="34" cy="24" r="4" stroke="currentColor" strokeWidth="2.2" />
-      <path d="M14 14v20M14 24c0-5.5 4.5-9 10-9h6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-    </svg>
-  ),
-};
-
 function StackCard({
   name,
   desc,
@@ -91,29 +20,50 @@ function StackCard({
   color: string;
 }) {
   const [flipped, setFlipped] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   return (
-    <div
-      className="flip-card-scene h-52 sm:h-56 cursor-pointer group w-full"
-      onMouseEnter={() => setFlipped(true)}
-      onMouseLeave={() => setFlipped(false)}
-    >
-      <div className={`relative w-full h-full flip-card-inner ${flipped ? "is-flipped" : ""}`}>
-        {/* Front — solid white card with icon + name */}
-        <div className="absolute inset-0 flip-card-face rounded-3xl bg-white shadow-xl flex flex-col items-center justify-center gap-4 px-4 border border-black/5">
-          <div className="w-14 h-14 sm:w-16 sm:h-16 transition-transform duration-300 group-hover:scale-110" style={{ color }}>
-            {ICONS[icon]}
+    <div className="group relative w-full max-w-[400px] mx-auto aspect-[9/10]">
+      {/* Hint shown on hover — click/tap is what actually flips the card */}
+      <span className="pointer-events-none absolute -top-4 left-1/2 -translate-x-1/2 z-20 rounded-full bg-white text-[#17161a] text-xs font-semibold px-4 py-1.5 shadow-lg opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:-translate-y-2">
+        Tap to flip
+      </span>
+
+      <div
+        className="flip-card-scene h-full w-full cursor-pointer"
+        onClick={() => setFlipped((f) => !f)}
+        onMouseLeave={() => setFlipped(false)}
+      >
+        <div className={`relative w-full h-full flip-card-inner ${flipped ? "is-flipped" : ""}`}>
+          {/* Front — solid white card with real brand icon + name */}
+          <div className="absolute inset-0 flip-card-face rounded-[1.75rem] bg-white flex flex-col items-center justify-center gap-4 px-4 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.55)] transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_28px_60px_-15px_rgba(0,0,0,0.65)]">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">              {!imgError ? (
+                <img
+                  src={`https://cdn.jsdelivr.net/npm/simple-icons@13/icons/${icon}.svg`}
+                  alt={name}
+                  className="w-full h-full object-contain"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                  onError={() => setImgError(true)}
+                />
+              ) : (
+                <div
+                  className="w-full h-full rounded-2xl flex items-center justify-center text-3xl font-display font-bold text-white"
+                  style={{ background: color }}
+                >
+                  {name.charAt(0)}
+                </div>
+              )}
+            </div>
+            <span className="font-display font-semibold text-xl sm:text-2xl text-[#17161a] text-center">
+              {name}
+            </span>
           </div>
-          <span className="font-display font-semibold text-base sm:text-lg text-[#17161a] text-center">
-            {name}
-          </span>
-          <span className="absolute bottom-3 right-4 rounded-full bg-[#17161a] text-white text-[10px] px-2.5 py-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-            Hover to flip
-          </span>
-        </div>
-        {/* Back — description on accent color */}
-        <div className="absolute inset-0 flip-card-face flip-card-back rounded-3xl bg-[var(--accent-violet)] flex items-center justify-center px-6 text-center shadow-xl">
-          <p className="text-sm sm:text-base text-white leading-relaxed font-medium">{desc}</p>
+
+          {/* Back — description on accent color */}
+          <div className="absolute inset-0 flip-card-face flip-card-back rounded-[1.75rem] bg-[var(--accent-violet)] flex items-center justify-center px-6 text-center shadow-[0_20px_50px_-15px_rgba(0,0,0,0.55)]">
+            <p className="text-sm sm:text-base text-white leading-relaxed font-medium">{desc}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -209,7 +159,7 @@ export default function Stack() {
               {row.map((item) => (
                 <div
                   key={item.name}
-                  className="w-full sm:w-[calc(50%-16px)] md:w-[calc(33.33%-22px)] max-w-sm"
+                  className="w-full sm:w-[calc(50%-16px)] md:w-[calc(33.33%-22px)] max-w-md"
                   style={{ transformOrigin: "center center" }}
                 >
                   <StackCard {...item} />

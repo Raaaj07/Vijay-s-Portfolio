@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import Marquee from "./Marquee";
 import FloatingShapes from "./FloatingShapes";
 import { SITE, ROLES } from "@/lib/data";
@@ -20,13 +21,15 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="relative w-full h-full min-h-screen bg-[var(--bg-dark)] flex flex-col items-center justify-center px-4">
-      {/* Background marquee — bold, near-solid white, drifts opposite the cursor for depth */}
+    <div className="relative w-full h-full min-h-screen bg-[var(--bg-dark)] flex flex-col items-center justify-center px-4 overflow-hidden">
+      {/* Background marquee — scrolls behind profile photo */}
       <div
-        className="absolute inset-0 flex items-center opacity-90 z-0 text-[var(--text-dark)]"
+        className="absolute left-0 right-0 top-1/2 z-0 text-[var(--text-dark)] overflow-hidden"
         style={{
-          transform: `translate3d(${x * 14}px, ${y * 10}px, 0)`,
+          transform: `translate3d(${x * 14}px, calc(-50% + ${y * 10}px), 0)`,
           transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+          maskImage: "linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%)",
         }}
       >
         <Marquee text={SITE.name} />
@@ -36,7 +39,7 @@ export default function Hero() {
 
       {/* Foreground content — subtle tilt toward the cursor */}
       <div
-        className="relative z-10 flex flex-col items-center text-center pt-16 sm:pt-10"
+        className="relative z-10 flex flex-col items-center text-center"
         style={{
           transform: `translate3d(${x * 8}px, ${y * 6}px, 0)`,
           transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
@@ -65,20 +68,22 @@ export default function Hero() {
 
         {/* Profile flip card */}
         <div
-          className="mt-8 flip-card-scene w-40 h-40 sm:w-48 sm:h-48 cursor-pointer group"
+          className="mt-8 flip-card-scene w-56 h-56 sm:w-72 sm:h-72 cursor-pointer group"
           onClick={() => setFlipped((f) => !f)}
           onMouseEnter={() => setFlipped(true)}
           onMouseLeave={() => setFlipped(false)}
         >
           <div className={`relative w-full h-full flip-card-inner ${flipped ? "is-flipped" : ""}`}>
             {/* Front: square rounded photo */}
-            <div className="absolute inset-0 flip-card-face rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.02]">
-              {/* EDIT ME: replace with next/image + real photo at /public/profile.jpg */}
-              <div className="w-full h-full flex items-center justify-center text-xs text-[var(--text-dark-muted)] text-center px-4">
-                Profile photo
-                <br />
-                (drop into /public/profile.jpg)
-              </div>
+            <div className="absolute inset-0 flip-card-face rounded-3xl overflow-hidden border border-white/10">
+              <Image
+                src="/profile.jpg"
+                alt="Vijay Raj — profile photo"
+                fill
+                sizes="(max-width: 640px) 224px, 288px"
+                className="object-cover object-top"
+                priority
+              />
             </div>
 
             {/* Back: circular badge, curved rotating text + bouncing arrow */}
