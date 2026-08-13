@@ -14,7 +14,7 @@ export const SITE = {
   linkedin: "https://www.linkedin.com/in/vijay-raj-p2004/",
   github: "https://github.com/Raaaj07",
   // EDIT ME — add real profile photo to /public/profile.jpg and it will show automatically
-  profileImage: "portfolio\public\profile.jpg",
+  profileImage: "/profile.jpg",
   // EDIT ME — add a real hosted PDF (e.g. /resume.pdf in /public, or a Drive link)
   resumeLink: "#",
 };
@@ -102,45 +102,104 @@ export const SERVICES = [
 
 export const PROJECTS = [
   {
+    slug: "pg-management-system",
     title: "PG Management System",
     category: "MERN STACK",
     description:
       "Authentication, tenant management, room allocation, and rent tracking with a responsive admin dashboard.",
-    // EDIT ME — replace with a real screenshot in /public/projects/
-    image: "/projects/pg-management.jpg",
-    link: "#", // EDIT ME — add live demo URL
+    longDescription:
+      "A full-stack PG (paying-guest accommodation) management system built to replace spreadsheet-based tracking with a proper admin dashboard. Handles tenant onboarding, room allocation across multiple properties, monthly rent tracking with payment history, and role-based authentication so owners and staff see only what they need.",
+    image: "/pg-management.png",
+    accent: "#7c5cfc",
+    techStack: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT Auth", "Tailwind CSS"],
+    features: [
+      "Role-based authentication for owners, staff, and tenants",
+      "Room allocation with live vacancy tracking across properties",
+      "Rent tracking with monthly payment history per tenant",
+      "Responsive admin dashboard for day-to-day operations",
+    ],
+    live: "#", // EDIT ME — add live demo / hosted URL
+    github: "#", // EDIT ME — add GitHub repo URL
   },
   {
+    slug: "industrial-waste-management",
     title: "Industrial Waste Management",
     category: "NEXT.JS / SUPABASE",
     description:
       "Full-stack waste exchange platform connecting industries with recyclers via role-based auth and Google Maps-based discovery.",
-    image: "/projects/waste-management.jpg",
-    link: "#", // EDIT ME — add live demo URL
+    longDescription:
+      "A waste-exchange marketplace connecting industries that generate waste with recyclers who can process it. Industries list waste materials, recyclers discover nearby listings through Google Maps integration, and role-based authentication keeps each side of the marketplace scoped to their own workflows.",
+    image: "/waste-management.png",
+    accent: "#3fe0d0",
+    techStack: ["Next.js", "Supabase", "PostgreSQL", "Google Maps API", "Tailwind CSS"],
+    features: [
+      "Role-based auth separating industries from recyclers",
+      "Google Maps-based discovery of nearby waste listings",
+      "Real-time listing status via Supabase",
+      "Responsive UI across desktop and mobile",
+    ],
+    live: "#", // EDIT ME — add live demo / hosted URL
+    github: "#", // EDIT ME — add GitHub repo URL
   },
   {
+    slug: "privacy-preserving-multi-ranked-search",
     title: "Privacy-Preserving Multi-Ranked Search",
     category: "RESEARCH / CLOUD",
     description:
       "Secure multi-ranked search over encrypted cloud data using ATEES/ATS encrypted indexing — presented at IEEE ICITSIF 2026.",
-    image: "/projects/secure-search.jpg",
-    link: "#",
+    longDescription:
+      "A research project addressing secure, ranked keyword search over encrypted data stored in the cloud. Uses ATEES/ATS encrypted indexing so a cloud provider can return ranked, relevant results without ever seeing the underlying plaintext data or query. Presented at IEEE ICITSIF 2026.",
+    image: "/secure-search.png",
+    accent: "#4c8dff",
+    techStack: ["Encrypted Indexing (ATEES/ATS)", "Cloud Storage", "Cryptography", "Python"],
+    features: [
+      "Ranked multi-keyword search over encrypted cloud data",
+      "ATEES/ATS encrypted indexing for query privacy",
+      "No plaintext exposure to the cloud provider",
+      "Presented at IEEE ICITSIF 2026",
+    ],
+    live: "", // EDIT ME — add paper / demo link
+    github: "", // EDIT ME — add GitHub repo URL
   },
   {
+    slug: "turf-registration-system",
     title: "Turf Registration System",
     category: "WEB APP",
     description:
       "Full CRUD turf booking app with slot availability and validation to prevent duplicate reservations, backed by MongoDB.",
-    image: "/projects/turf-registration.jpg",
-    link: "#",
+    longDescription:
+      "A turf (sports ground) booking application with full CRUD workflows. Users browse slot availability in real time and book a turf, while server-side validation prevents double-booking the same slot — the core reliability problem this project was built to solve.",
+    image: "/turf-registration.png",
+    accent: "#ffb238",
+    techStack: ["React.js", "Node.js", "Express.js", "MongoDB"],
+    features: [
+      "Real-time slot availability per turf",
+      "Server-side validation to prevent duplicate reservations",
+      "Full CRUD booking management",
+      "Clean, mobile-friendly booking flow",
+    ],
+    live: "#", // EDIT ME — add live demo / hosted URL
+    github: "#", // EDIT ME — add GitHub repo URL
   },
   {
+    slug: "brew-right",
     title: "BREW-RIGHT",
     category: "UI DESIGN",
     description:
       "Interactive coffee ordering interface with dynamic product listing, cart functionality, and responsive layout.",
-    image: "/projects/brew-right.jpg",
-    link: "#",
+    longDescription:
+      "An interactive coffee ordering interface designed and built as a UI-focused project. Features a dynamic product listing, a working cart with quantity management, and a fully responsive layout tuned for a smooth ordering experience on any device.",
+    image: "/brew-right.jpg",
+    accent: "#ff6b6b",
+    techStack: ["React.js", "Figma", "CSS3", "Responsive Design"],
+    features: [
+      "Dynamic product listing with category filtering",
+      "Working cart with quantity and total management",
+      "Fully responsive layout, mobile to desktop",
+      "Designed in Figma before implementation",
+    ],
+    live: "#", // EDIT ME — add live demo / hosted URL
+    github: "#", // EDIT ME — add GitHub repo URL
   },
 ];
 
