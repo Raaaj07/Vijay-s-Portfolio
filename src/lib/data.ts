@@ -140,7 +140,7 @@ export const PROJECTS: Project[] = [
       "Authentication, tenant management, room allocation, and rent tracking with a responsive admin dashboard.",
     longDescription:
       "A full-stack PG (paying-guest accommodation) management system built to replace spreadsheet-based tracking with a proper admin dashboard. Handles tenant onboarding, room allocation across multiple properties, monthly rent tracking with payment history, and role-based authentication so owners and staff see only what they need.",
-    image: "/pg-management.png",
+    image: "/pg-management.webp",
     accent: "#7c5cfc",
     techStack: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT Auth", "Tailwind CSS"],
     features: [
@@ -160,7 +160,7 @@ export const PROJECTS: Project[] = [
       "Full-stack waste exchange platform connecting industries with recyclers via role-based auth and Google Maps-based discovery.",
     longDescription:
       "A waste-exchange marketplace connecting industries that generate waste with recyclers who can process it. Industries list waste materials, recyclers discover nearby listings through Google Maps integration, and role-based authentication keeps each side of the marketplace scoped to their own workflows.",
-    image: "/waste-management.png",
+    image: "/waste-management.webp",
     accent: "#3fe0d0",
     techStack: ["Next.js", "Supabase", "PostgreSQL", "Google Maps API", "Tailwind CSS"],
     features: [
@@ -180,7 +180,7 @@ export const PROJECTS: Project[] = [
       "Secure cloud storage and search system where files are encrypted at rest and searched via cryptographic trapdoors — the server never sees plaintext. Presented at IEEE ICITSIF 2026.",
     longDescription:
       "P-MRSE is a secure cloud storage and search system built around zero plaintext leakage: files are compressed and AES-256 encrypted before storage, and users search across them without the server ever decrypting the content, seeing plaintext keywords, or logging search queries. Search works by hashing keywords into HMAC-SHA256 trapdoors and matching them against an encrypted index, then ranking results with a custom ATEES algorithm (Adaptive TF-IDF + Exponential Freshness Score). Integrity is verified end-to-end with RSA-2048 signatures and MD5 checksums, and accounts are protected with TOTP-based two-factor authentication. Presented at IEEE ICITSIF 2026.",
-    image: "/secure-search.png",
+    image: "/secure-search.webp",
     accent: "#4c8dff",
     techStack: [
       "React + Vite",
@@ -218,7 +218,7 @@ export const PROJECTS: Project[] = [
       "Full CRUD turf booking app with slot availability and validation to prevent duplicate reservations, backed by MongoDB.",
     longDescription:
       "A turf (sports ground) booking application with full CRUD workflows. Users browse slot availability in real time and book a turf, while server-side validation prevents double-booking the same slot — the core reliability problem this project was built to solve.",
-    image: "/turf-registration.png",
+    image: "/turf-registration.webp",
     accent: "#ffb238",
     techStack: ["React.js", "Node.js", "Express.js", "MongoDB"],
     features: [
@@ -238,7 +238,7 @@ export const PROJECTS: Project[] = [
       "Interactive coffee ordering interface with dynamic product listing, cart functionality, and responsive layout.",
     longDescription:
       "An interactive coffee ordering interface designed and built as a UI-focused project. Features a dynamic product listing, a working cart with quantity management, and a fully responsive layout tuned for a smooth ordering experience on any device.",
-    image: "/brew-right.jpg",
+    image: "/brew-right.webp",
     accent: "#ff6b6b",
     techStack: ["React.js", "Figma", "CSS3", "Responsive Design"],
     features: [
