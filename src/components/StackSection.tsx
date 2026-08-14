@@ -10,13 +10,14 @@ type StackSectionProps = {
   className?: string;
   glow?: string; // CSS color used for the ambient glow
   overflowHidden?: boolean;
+  minHeight?: string; // override e.g. "min-h-fit" to remove forced full-screen height
 };
 
-export default function StackSection({ id, children, className = "", overflowHidden = true }: StackSectionProps) {
+export default function StackSection({ id, children, className = "", overflowHidden = true, minHeight = "min-h-screen" }: StackSectionProps) {
   return (
     <section
       id={id}
-      className="relative min-h-screen flex items-stretch w-full"
+      className={`relative ${minHeight} flex items-stretch w-full`}
     >
       <motion.div
         initial={{ opacity: 0.85, y: 15 }}

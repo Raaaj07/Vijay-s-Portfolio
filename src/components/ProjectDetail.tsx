@@ -87,7 +87,7 @@ export default function ProjectDetail({
           {/* Action Buttons */}
           <div className="mt-7 flex flex-wrap items-center gap-3">
             {/* Live Website */}
-            {project.live && (
+            {project.live && project.live !== "#" && (
               <a
                 href={project.live}
                 target="_blank"
@@ -116,7 +116,7 @@ export default function ProjectDetail({
             )}
 
             {/* GitHub */}
-            {project.github && (
+            {project.github && project.github !== "#" && (
               <a
                 href={project.github}
                 target="_blank"
@@ -215,6 +215,38 @@ export default function ProjectDetail({
                 </li>
               ))}
             </ul>
+
+            {/* How It Works — only renders for projects that define techHighlights */}
+            {project.techHighlights && project.techHighlights.length > 0 && (
+              <>
+                <h2 className="font-display font-semibold text-xl mt-10 mb-4">
+                  How It Works
+                </h2>
+
+                <ol className="space-y-4">
+                  {project.techHighlights.map((h, i) => (
+                    <li key={h.step} className="flex gap-4">
+                      <span
+                        className="mt-0.5 flex-shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold"
+                        style={{
+                          background: `${project.accent}22`,
+                          color: project.accent,
+                        }}
+                      >
+                        {i + 1}
+                      </span>
+
+                      <span className="text-[var(--text-dark-muted)] leading-relaxed">
+                        <span className="text-[var(--text-dark)] font-semibold">
+                          {h.step}:
+                        </span>{" "}
+                        {h.detail}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </>
+            )}
           </motion.div>
 
           {/* Tech Stack */}

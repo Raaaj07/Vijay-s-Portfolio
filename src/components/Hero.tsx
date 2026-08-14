@@ -21,7 +21,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="relative w-full h-full min-h-screen bg-[var(--bg-dark)] flex flex-col items-center justify-center px-4 overflow-hidden">
+    <div className="relative w-full h-full min-h-fit bg-[var(--bg-dark)] flex flex-col items-center justify-center px-4 py-20 overflow-hidden">
       {/* Background marquee — scrolls behind profile photo */}
       <div
         className="absolute left-0 right-0 top-1/2 z-0 text-[var(--text-dark)] overflow-hidden"
@@ -50,7 +50,7 @@ export default function Hero() {
         </h1>
 
         <div className="mt-4 h-10 flex items-center justify-center">
-          <div className="relative overflow-hidden rounded-full border border-white/15 bg-white/5 px-5 py-2 min-w-[220px] flex items-center justify-center">
+          <div className="relative overflow-hidden rounded-full bg-white shadow-md shadow-black/20 px-5 py-2 min-w-[220px] flex items-center justify-center">
             <AnimatePresence mode="wait">
               <motion.span
                 key={ROLES[roleIndex]}
@@ -58,7 +58,7 @@ export default function Hero() {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -16, opacity: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="text-sm font-medium text-[var(--text-dark-muted)] whitespace-nowrap"
+                className="text-sm font-semibold text-black whitespace-nowrap"
               >
                 {ROLES[roleIndex]}
               </motion.span>
@@ -74,16 +74,21 @@ export default function Hero() {
           onMouseLeave={() => setFlipped(false)}
         >
           <div className={`relative w-full h-full flip-card-inner ${flipped ? "is-flipped" : ""}`}>
-            {/* Front: square rounded photo */}
-            <div className="absolute inset-0 flip-card-face rounded-3xl overflow-hidden border border-white/10">
-              <Image
-                src="/profile.jpg"
-                alt="Vijay Raj — profile photo"
-                fill
-                sizes="(max-width: 640px) 224px, 288px"
-                className="object-cover object-top"
-                priority
-              />
+            {/* Front: white header bar + photo below it */}
+            <div className="absolute inset-0 flip-card-face rounded-3xl overflow-hidden border border-white/10 flex flex-col">
+        
+            
+              {/* Photo fills the rest of the card */}
+              <div className="relative flex-1">
+                <Image
+                  src="/profile.webp"
+                  alt="Vijay Raj — profile photo"
+                  fill
+                  sizes="(max-width: 640px) 224px, 288px"
+                  className="object-cover object-top"
+                  priority
+                />
+              </div>
             </div>
 
             {/* Back: circular badge, curved rotating text + bouncing arrow */}
@@ -116,23 +121,19 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Social proof + CTA */}
-        <div className="mt-7 flex items-center gap-3">
-          <div className="flex -space-x-3">
-            {["#7C5CFC", "#3FE0D0", "#FF6B6B", "#FFB238"].map((c, i) => (
-              <div
-                key={i}
-                className="w-8 h-8 rounded-full border-2 border-[var(--bg-dark)]"
-                style={{ background: c }}
-              />
-            ))}
-          </div>
-          <span className="text-sm text-[var(--text-dark-muted)]">50+ Happy Clients</span>
-        </div>
+
+        {/* Trust badge — same visual slot as "50+ Happy Clients" in the
+            reference, but wired to something real from data.ts */}
+        {/* <div className="mt-8 inline-flex items-center gap-2 rounded-full bg-white shadow-md shadow-black/20 px-4 py-2">
+          <span className="text-base leading-none">{TRUST_BADGE.icon}</span>
+          <span className="text-xs sm:text-sm font-semibold text-black">
+            {TRUST_BADGE.label}
+          </span>
+        </div> */}
 
         <a
           href="#contact"
-          className="mt-6 inline-flex items-center gap-2 rounded-full bg-white text-black px-6 py-3 text-sm font-semibold hover:bg-[var(--accent-violet)] hover:text-white transition-colors duration-300"
+          className="mt-15 inline-flex items-center gap-2 rounded-full bg-white text-black px-15 py-3 text-l font-semibold hover:bg-[var(--accent-violet)] hover:text-white transition-colors duration-300"
         >
           Let&apos;s Work Together!
         </a>

@@ -14,9 +14,9 @@ export const SITE = {
   linkedin: "https://www.linkedin.com/in/vijay-raj-p2004/",
   github: "https://github.com/Raaaj07",
   // EDIT ME — add real profile photo to /public/profile.jpg and it will show automatically
-  profileImage: "/profile.jpg",
+  profileImage: "/profile.webp",
   // EDIT ME — add a real hosted PDF (e.g. /resume.pdf in /public, or a Drive link)
-  resumeLink: "#",
+  resumeLink: "https://drive.google.com/file/d/110SbrWYpbpOmeKRPsqlpMr_o0BmnfmaH/view?usp=drive_link",
 };
 
 export const ROLES = [
@@ -25,6 +25,15 @@ export const ROLES = [
   "React.js Developer",
   "UI/UX Designer",
 ];
+
+// Small stat/trust badge shown near the CTA button on the hero (the
+// "X+ Happy Clients" style pill). EDIT ME — keep this to something true.
+// Ideas if you don't have client numbers yet: "5+ Projects Shipped",
+// "1 IEEE Publication", "B.Tech IT · 2026", "Open to Opportunities".
+export const TRUST_BADGE = {
+  label: "IEEE ICITSIF 2026 Published",
+  icon: "🏆",
+};
 
 export const BIO = `MERN Stack Developer with hands-on experience building responsive, full-stack web applications using MongoDB, Express.js, React.js, and Node.js. I like turning rough ideas into clean, production-ready dashboards — REST APIs, authentication, and CRUD workflows are my daily bread. Currently finishing my B.Tech in Information Technology, and shipping side projects in between.`;
 
@@ -100,7 +109,29 @@ export const SERVICES = [
   },
 ];
 
-export const PROJECTS = [
+export interface ProjectHighlight {
+  step: string;
+  detail: string;
+}
+
+export interface Project {
+  slug: string;
+  title: string;
+  category: string;
+  description: string;
+  longDescription: string;
+  image: string;
+  accent: string;
+  techStack: string[];
+  features: string[];
+  // Optional: a short "how it works" pipeline. Great for technical/backend-heavy
+  // projects (like PMRSE). Leave it off for simpler projects — it's optional.
+  techHighlights?: ProjectHighlight[];
+  live: string;
+  github: string;
+}
+
+export const PROJECTS: Project[] = [
   {
     slug: "pg-management-system",
     title: "PG Management System",
@@ -118,8 +149,8 @@ export const PROJECTS = [
       "Rent tracking with monthly payment history per tenant",
       "Responsive admin dashboard for day-to-day operations",
     ],
-    live: "#", // EDIT ME — add live demo / hosted URL
-    github: "#", // EDIT ME — add GitHub repo URL
+    live: "https://pg-management-gtp1.onrender.com/", // EDIT ME — no live deploy found on your repo. Deploy this (Render/Vercel) and drop the URL here, or leave "#" to hide the button.
+    github: "https://github.com/Raaaj07/PG-Management",
   },
   {
     slug: "industrial-waste-management",
@@ -138,28 +169,46 @@ export const PROJECTS = [
       "Real-time listing status via Supabase",
       "Responsive UI across desktop and mobile",
     ],
-    live: "#", // EDIT ME — add live demo / hosted URL
-    github: "#", // EDIT ME — add GitHub repo URL
+    live: "https://waste-management-nine-sable.vercel.app",
+    github: "https://github.com/Raaaj07/waste-management",
   },
   {
     slug: "privacy-preserving-multi-ranked-search",
-    title: "Privacy-Preserving Multi-Ranked Search",
-    category: "RESEARCH / CLOUD",
+    title: "P-MRSE — Privacy-Preserving Multi-Ranked Search",
+    category: "RESEARCH / SECURITY",
     description:
-      "Secure multi-ranked search over encrypted cloud data using ATEES/ATS encrypted indexing — presented at IEEE ICITSIF 2026.",
+      "Secure cloud storage and search system where files are encrypted at rest and searched via cryptographic trapdoors — the server never sees plaintext. Presented at IEEE ICITSIF 2026.",
     longDescription:
-      "A research project addressing secure, ranked keyword search over encrypted data stored in the cloud. Uses ATEES/ATS encrypted indexing so a cloud provider can return ranked, relevant results without ever seeing the underlying plaintext data or query. Presented at IEEE ICITSIF 2026.",
+      "P-MRSE is a secure cloud storage and search system built around zero plaintext leakage: files are compressed and AES-256 encrypted before storage, and users search across them without the server ever decrypting the content, seeing plaintext keywords, or logging search queries. Search works by hashing keywords into HMAC-SHA256 trapdoors and matching them against an encrypted index, then ranking results with a custom ATEES algorithm (Adaptive TF-IDF + Exponential Freshness Score). Integrity is verified end-to-end with RSA-2048 signatures and MD5 checksums, and accounts are protected with TOTP-based two-factor authentication. Presented at IEEE ICITSIF 2026.",
     image: "/secure-search.png",
     accent: "#4c8dff",
-    techStack: ["Encrypted Indexing (ATEES/ATS)", "Cloud Storage", "Cryptography", "Python"],
-    features: [
-      "Ranked multi-keyword search over encrypted cloud data",
-      "ATEES/ATS encrypted indexing for query privacy",
-      "No plaintext exposure to the cloud provider",
-      "Presented at IEEE ICITSIF 2026",
+    techStack: [
+      "React + Vite",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Node.js / Express",
+      "MongoDB",
+      "AES-256-CBC",
+      "RSA-2048",
+      "HMAC-SHA256",
+      "Speakeasy TOTP",
     ],
-    live: "", // EDIT ME — add paper / demo link
-    github: "", // EDIT ME — add GitHub repo URL
+    features: [
+      "Zero plaintext leakage — server only ever touches hashes and AES-encrypted blobs",
+      "Cryptographic trapdoor search: keywords hashed to HMAC-SHA256 trapdoors, never sent or logged in plaintext",
+      "Custom ATEES ranking algorithm (TF-IDF weighted 0.85 + freshness boost weighted 0.15) for relevance-ranked Top-K results",
+      "Optional fuzzy search via Levenshtein distance matching against a keyword shadow map",
+      "End-to-end integrity: RSA-2048 signed checksums + MD5 verification on every download",
+      "TOTP-based two-factor authentication (Speakeasy) and per-user RSA key pairs generated at registration",
+    ],
+    // How the request actually flows through the system — great for a "system design" section.
+    techHighlights: [
+      { step: "Upload", detail: "Extract keywords → compress (zlib) → AES-256-CBC encrypt → RSA-2048 sign checksum → store blob + HMAC trapdoors in MongoDB." },
+      { step: "Search", detail: "Query keywords hashed to HMAC-SHA256 trapdoors server-side (never logged) → matched against the encrypted index → ranked by the ATEES algorithm." },
+      { step: "Download", detail: "Permission check → AES-256 decrypt → zlib decompress → MD5 integrity verification → stream plaintext back to the client." },
+    ],
+    live: "#", // EDIT ME — add a hosted demo URL if you deploy this, or link the IEEE paper here instead
+    github: "https://github.com/Raaaj07/PMRSE-FINAL-PROJECT",
   },
   {
     slug: "turf-registration-system",
@@ -179,7 +228,7 @@ export const PROJECTS = [
       "Clean, mobile-friendly booking flow",
     ],
     live: "#", // EDIT ME — add live demo / hosted URL
-    github: "#", // EDIT ME — add GitHub repo URL
+    github: "#", // EDIT ME — I couldn't find a public repo for this on github.com/Raaaj07. Push it (even a snapshot) and link it here, or this card will look unfinished next to the others.
   },
   {
     slug: "brew-right",
@@ -199,15 +248,15 @@ export const PROJECTS = [
       "Designed in Figma before implementation",
     ],
     live: "#", // EDIT ME — add live demo / hosted URL
-    github: "#", // EDIT ME — add GitHub repo URL
+    github: "#", // EDIT ME — same here, no public repo found under github.com/Raaaj07. Push it or swap this project out.
   },
 ];
 
 export const SOCIALS = [
   { label: "LinkedIn", href: SITE.linkedin },
   { label: "GitHub", href: SITE.github },
-  { label: "Behance", href: "#" }, // EDIT ME — not on resume, add if you have one
-  { label: "Instagram", href: "#" }, // EDIT ME — not on resume, add if you have one
+ // EDIT ME — not on resume, add if you have one
+ // EDIT ME — not on resume, add if you have one
 ];
 
 export const NAV_LINKS = ["Home", "About", "Stack", "Services", "Projects", "Contact"];

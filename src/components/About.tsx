@@ -153,7 +153,7 @@ export default function About() {
         href={SITE.resumeLink}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-14 inline-flex items-center gap-2 rounded-full bg-white text-black px-6 py-3 text-sm font-semibold hover:bg-[var(--accent-violet)] hover:text-white transition-colors duration-300 relative z-20"
+        className="mt-25 inline-flex items-center gap-2 rounded-full bg-white text-black px-6 py-3 text-sm font-semibold hover:bg-[var(--accent-violet)] hover:text-white transition-colors duration-300 relative z-20"
       >
         Read My CV
       </a>

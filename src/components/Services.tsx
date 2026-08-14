@@ -88,113 +88,82 @@ export default function Services() {
 
   return (
     <div className="relative w-full bg-[var(--bg-dark)]">
-      {/* Full-width layout wrapper */}
-      <div ref={containerRef} className="relative w-full">
-        <div className="flex flex-col md:flex-row items-stretch">
-          
-          {/* Left Column: Sticky Sidebar container (black background/transparent, centering the white box) */}
-          <div className="hidden md:flex md:sticky md:top-0 md:h-screen z-10 w-full md:w-[35%] bg-transparent flex-col justify-center items-center">
-            {/* White card sidebar (reduced size) */}
-            <div className="bg-white text-[#17161a] w-full max-w-[280px] h-[400px] flex flex-col justify-between p-8 rounded-none shadow-2xl">
-              <div className="flex-1 flex flex-col justify-center items-center text-center">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -12 }}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="flex flex-col items-center"
-                  >
-                    <span className="block font-display font-black leading-none text-[4.5rem] sm:text-[5.5rem] text-black/15">
-                      {current.number}
-                    </span>
-                    <span className="block font-display font-bold text-base sm:text-lg uppercase -mt-3 text-center">
-                      {current.title}
-                    </span>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+      {/* Section heading — sits above the two-column layout, centered on the
+          full page (not just the black column), so it reads as one title. */}
+      <div className="pt-20 sm:pt-28 pb-10 sm:pb-14 text-center px-4">
+        <h2 className="font-display font-bold text-3xl sm:text-4xl text-white">
+          Services
+        </h2>
+      </div>
 
-              {/* Sidebar navigation list */}
-              <ul className="flex flex-col items-center gap-3 mt-4 pb-2 w-full">
-                {SERVICES.map((s, i) => (
-                  <li key={s.number} className="w-full flex justify-center">
-                    <button
-                      onClick={() => {
-                        const targetCard = document.querySelector(`.service-card-${i}`);
-                        if (targetCard) {
-                          const rect = targetCard.getBoundingClientRect();
-                          const targetScrollY = window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
-                          window.scrollTo({ top: targetScrollY, behavior: "smooth" });
-                        }
-                      }}
-                      className={`flex items-center gap-3 text-left text-xs tracking-wide transition-colors duration-300 ${
-                        active === i ? "text-black font-bold" : "text-black/40 hover:text-black/70"
-                      }`}
-                    >
-                      <span
-                        className="w-2 h-2 rounded-full transition-transform duration-300"
-                        style={{
-                          background: active === i ? s.color : "transparent",
-                          border: active === i ? "none" : "1px solid currentColor",
-                          transform: active === i ? "scale(1.2)" : "scale(1)",
-                        }}
-                      />
-                      {s.number} — {s.title}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+      {/* Constrained wrapper: max-width + auto margins keeps the white/black
+          panel centered with breathing room on both sides instead of
+          stretching edge-to-edge. Adjust max-w-6xl to taste (max-w-5xl = narrower). */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div ref={containerRef} className="relative w-full">
+          <div className="flex flex-col md:flex-row items-stretch">
 
-          {/* Right Column: Vertically stacked scrollable cards */}
-          <div className="w-full md:w-[65%] bg-black flex flex-col justify-start">
-            {/* Header "Services" centered in the right container */}
-            <div className="pt-24 pb-8 text-center">
-              <h2 className="font-display font-bold text-3xl sm:text-4xl text-white">
-                Services
-              </h2>
-            </div>
-
-            <div className="flex flex-col">
-              {SERVICES.map((s, i) => (
-                <div
-                  key={s.number}
-                  className={`service-card-${i} relative bg-black px-8 sm:px-16 lg:px-24 py-20 min-h-[60vh] md:min-h-[75vh] flex flex-col justify-center border-b border-white/5 overflow-hidden`}
+            {/* Left Column: Sticky Sidebar — content anchored top-left */}
+            <div className="hidden md:flex md:sticky md:top-0 md:h-screen z-10 w-full md:w-[35%] bg-white flex-col items-start px-10 pt-28">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={active}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="text-[#17161a]"
                 >
-                  {/* Accent glow behind each service block */}
-                  <div
-                    className="absolute -right-20 -top-20 w-80 h-80 rounded-full blur-[100px] opacity-10 pointer-events-none transition-opacity duration-500"
-                    style={{ backgroundColor: s.color }}
-                  />
-
-                  {/* Left/top mobile number header - compact centered white card */}
-                  <div className="flex items-center justify-center gap-4 md:hidden mb-8 bg-white text-black px-6 py-4 rounded-none w-full max-w-[280px] mx-auto shadow-lg">
-                    <span className="font-display font-black text-2xl">
-                      {s.number}
-                    </span>
-                    <span className="w-px h-6 bg-black/15" />
-                    <span className="font-display font-bold text-xs uppercase tracking-wider text-center">
-                      {s.title}
-                    </span>
-                  </div>
-
-                  {/* Description text */}
-                  <p className="text-[var(--text-dark-muted)] leading-relaxed max-w-xl text-base sm:text-lg lg:text-xl z-10">
-                    {s.description}
-                  </p>
-
-                  {/* 3D Rotating Shape */}
-                  <div className="flex items-center justify-center mt-12 md:mt-8 md:h-[220px] z-10">
-                    <ServiceShape shape={s.shape} color={s.color} />
-                  </div>
-                </div>
-              ))}
+                  <span className="block font-display font-black leading-none text-[5.5rem] sm:text-[6.5rem] text-black/25">
+                    {current.number}
+                  </span>
+                  <span className="block font-display font-bold text-lg sm:text-xl uppercase -mt-2">
+                    {current.title}
+                  </span>
+                </motion.div>
+              </AnimatePresence>
             </div>
-          </div>
 
+            {/* Right Column: Vertically stacked scrollable cards */}
+            <div className="w-full md:w-[65%] bg-black flex flex-col justify-start">
+              <div className="flex flex-col">
+                {SERVICES.map((s, i) => (
+                  <div
+                    key={s.number}
+                    className={`service-card-${i} relative bg-black px-8 sm:px-16 lg:px-24 py-20 min-h-[85vh] flex flex-col justify-start pt-24 border-b border-white/5 overflow-hidden`}
+                  >
+                    {/* Accent glow behind each service block */}
+                    <div
+                      className="absolute -right-20 -top-20 w-80 h-80 rounded-full blur-[100px] opacity-10 pointer-events-none transition-opacity duration-500"
+                      style={{ backgroundColor: s.color }}
+                    />
+
+                    {/* Mobile number header - compact centered white card */}
+                    <div className="flex items-center justify-center gap-4 md:hidden mb-8 bg-white text-black px-6 py-4 rounded-none w-full max-w-[280px] mx-auto shadow-lg">
+                      <span className="font-display font-black text-2xl">
+                        {s.number}
+                      </span>
+                      <span className="w-px h-6 bg-black/15" />
+                      <span className="font-display font-bold text-xs uppercase tracking-wider text-center">
+                        {s.title}
+                      </span>
+                    </div>
+
+                    {/* Description text */}
+                    <p className="text-[var(--text-dark-muted)] leading-relaxed max-w-xl text-base sm:text-lg lg:text-xl z-10">
+                      {s.description}
+                    </p>
+
+                    {/* 3D Rotating Shape — lower and right-aligned, matching reference */}
+                    <div className="flex items-end justify-end flex-1 mt-12 md:mt-0 pb-8 md:pr-8 z-10">
+                      <ServiceShape shape={s.shape} color={s.color} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>

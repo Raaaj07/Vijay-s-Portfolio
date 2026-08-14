@@ -6,17 +6,13 @@ import { NAV_LINKS } from "@/lib/data";
 
 export default function Navbar() {
   const [active, setActive] = useState("Home");
-  const [isLight, setIsLight] = useState(false);
+
   const frame = useRef<number | null>(null);
 
   useEffect(() => {
     const sections = NAV_LINKS.map((label) => document.getElementById(label.toLowerCase()));
 
     const computeActive = () => {
-      // Sections use `position: sticky; top: 0`, so each one's rect.top sits
-      // at 0 exactly while it's the pinned/active card, positive before it
-      // arrives, negative once the next card has covered it. The active
-      // section is the last (highest-stacked) one that has reached top.
       let current = NAV_LINKS[0];
       const threshold = window.innerHeight * 0.4;
 
@@ -29,8 +25,7 @@ export default function Navbar() {
         }
       }
 
-      setActive(current);
-      setIsLight(current === "Contact");
+      setActive(current)
     };
 
     const handleScroll = () => {
@@ -55,43 +50,42 @@ export default function Navbar() {
 
   return (
     <div className="fixed top-4 sm:top-6 left-0 right-0 z-50 flex justify-center px-4">
-      <nav
-        className={`flex items-center gap-1 rounded-full px-1.5 py-1.5 backdrop-blur-md border transition-colors duration-500 ${
-          isLight
-            ? "bg-black/[0.04] border-black/10"
-            : "bg-white/[0.06] border-white/10"
-        }`}
-      >
-        {NAV_LINKS.map((label) => {
-          const isActive = active === label;
-          return (
-            <button
-              key={label}
-              onClick={() => handleClick(label)}
-              className={`relative px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-full transition-colors duration-300 ${
-                isActive
-                  ? isLight
-                    ? "text-white"
-                    : "text-black"
-                  : isLight
-                  ? "text-black/60 hover:text-black"
-                  : "text-white/60 hover:text-white"
-              }`}
-            >
-              {isActive && (
-                <motion.span
-                  layoutId="nav-pill"
-                  className={`absolute inset-0 rounded-full -z-10 ${
-                    isLight ? "bg-black" : "bg-white"
-                  }`}
-                  transition={{ type: "spring", stiffness: 340, damping: 30 }}
-                />
-              )}
-              {label}
-            </button>
-          );
-        })}
-      </nav>
+      {/* Dark translucent pill bar (switches to a light translucent bar over
+          the Contact section) with a violet active-tab highlight throughout */}
+      <nav className="flex items-center gap-1 rounded-full bg-white px-1.5 py-1.5 border border-black/10 shadow-sm">
+  {NAV_LINKS.map((label) => {
+  const isActive = active === label;
+
+  return (
+    <button
+      key={label}
+      onClick={() => handleClick(label)}
+      className={`relative z-0 px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-medium rounded-full transition-colors duration-300 ${
+        isActive
+          ? "text-white"
+          : "text-black/70 hover:text-black"
+      }`}
+    >
+      {isActive && (
+        <motion.span
+          layoutId="nav-pill"
+          className="absolute inset-0 rounded-full z-0"
+          style={{ backgroundColor: "#8B6CFF" }}
+          transition={{
+            type: "spring",
+            stiffness: 340,
+            damping: 30,
+          }}
+        />
+      )}
+
+      <span className="relative z-10">
+        {label}
+      </span>
+    </button>
+  );
+})}
+</nav>
     </div>
   );
 }
