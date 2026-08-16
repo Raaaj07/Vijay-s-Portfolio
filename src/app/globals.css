@@ -3,6 +3,11 @@
 @import "@fontsource-variable/inter";
 @import "@fontsource/anton";
 
+html {
+  scroll-behavior: auto; /* was smooth — GSAP's ScrollToPlugin handles this now */
+  background: var(--bg-dark);
+}
+
 :root {
   /* ── Color tokens ─────────────────────────────────────────── */
   --bg-dark: #0a0a0c;

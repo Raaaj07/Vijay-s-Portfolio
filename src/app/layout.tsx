@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { SITE } from "@/lib/data";
 import { MouseParallaxProvider } from "@/lib/mouse-parallax";
@@ -25,8 +26,24 @@ export const metadata: Metadata = {
 };
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className="antialiased">
+    <html lang="en" className="antialiased" data-scroll-behavior="smooth">
       <body className="min-h-full">
+        {/* Take over scroll positioning ourselves. beforeInteractive runs
+            before hydration, only once per real page load — not on every
+            client-side (soft) navigation — otherwise the browser's own
+            scroll-restoration puts you back at the old pixel offset from
+            before refresh, which lands on the wrong section once layout
+            has shifted (fonts/images/ScrollTrigger). */}
+        <Script id="scroll-restoration" strategy="beforeInteractive">
+          {`
+            if ("scrollRestoration" in window.history) {
+              window.history.scrollRestoration = "manual";
+            }
+            if (!window.location.hash) {
+              window.scrollTo(0, 0);
+            }
+          `}
+        </Script>
         <MouseParallaxProvider>{children}</MouseParallaxProvider>
       </body>
     </html>

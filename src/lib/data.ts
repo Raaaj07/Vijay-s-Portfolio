@@ -5,6 +5,62 @@
 // where I didn't have a real asset (photo, live demo link, social handle).
 // ─────────────────────────────────────────────────────────────────────────
 
+export interface TimelineItem {
+  type: "experience" | "education" | "achievement";
+  title: string;
+  subtitle: string;
+  period: string;
+  points: string[];
+  color: string;
+}
+
+export const TIMELINE: TimelineItem[] = [
+  {
+    type: "education",
+    title: "B.Tech, Information Technology",
+    subtitle: "K S Rangasamy College of Technology, Tiruchengode",
+    period: "2022 — 2026",
+    points: ["CGPA 7.45 / 10, 8th Semester"],
+    color: "#3fe0d0",
+  },
+  {
+    type: "experience",
+    title: "Full Stack Developer Intern",
+    subtitle: "KITKAT Software Technologies",
+    period: "Sep 2025 — Oct 2025",
+    points: [
+      "Developed and maintained a Student Admin Portal for a coaching institution using React.js, Supabase, and the Google Meet API.",
+      "Collaborated with the team to design, test, and debug code in a live project environment.",
+      "Strengthened web development skills through consistent mentor interactions.",
+    ],
+    color: "#7c5cfc",
+  },
+  {
+    type: "achievement",
+    title: "IEEE ICITSIF 2026 Publication",
+    subtitle: "Privacy-Preserving Multi-Ranked Search Environment for Encrypted and Compressed Cloud Data",
+    period: "2026",
+    points: ["Presented original research on cryptographic search over encrypted cloud data."],
+    color: "#ffb238",
+  },
+  {
+    type: "achievement",
+    title: "Workshop on Android App Development",
+    subtitle: "September 2023",
+    period: "2023",
+    points: ["Hands-on workshop covering the Android development fundamentals."],
+    color: "#ffb238",
+  },
+  {
+    type: "achievement",
+    title: "Paper Presentation on Datafication",
+    subtitle: "Erode Sengunthar College of Engineering",
+    period: "2024",
+    points: ["Presented a paper exploring the shift toward data-driven systems."],
+    color: "#ffb238",
+  }
+];
+
 export const SITE = {
   name: "Vijay Raj",
   fullName: "Vijay Raj S P",
@@ -17,13 +73,14 @@ export const SITE = {
   profileImage: "/profile.webp",
   // EDIT ME — add a real hosted PDF (e.g. /resume.pdf in /public, or a Drive link)
   resumeLink: "https://drive.google.com/file/d/110SbrWYpbpOmeKRPsqlpMr_o0BmnfmaH/view?usp=drive_link",
+  bookingLink: "https://calendly.com/vijayrajvj07/30min"
 };
 
 export const ROLES = [
   "Full Stack Developer",
   "MERN Stack Developer",
   "React.js Developer",
-  "UI/UX Designer",
+  "Backend Developer",
 ];
 
 // Small stat/trust badge shown near the CTA button on the hero (the
@@ -149,7 +206,7 @@ export const PROJECTS: Project[] = [
       "Rent tracking with monthly payment history per tenant",
       "Responsive admin dashboard for day-to-day operations",
     ],
-    live: "https://pg-management-gtp1.onrender.com/", // EDIT ME — no live deploy found on your repo. Deploy this (Render/Vercel) and drop the URL here, or leave "#" to hide the button.
+    live: "https://pg-management-ecru.vercel.app/", // EDIT ME — no live deploy found on your repo. Deploy this (Render/Vercel) and drop the URL here, or leave "#" to hide the button.
     github: "https://github.com/Raaaj07/PG-Management",
   },
   {
@@ -259,4 +316,5 @@ export const SOCIALS = [
  // EDIT ME — not on resume, add if you have one
 ];
 
-export const NAV_LINKS = ["Home", "About", "Stack", "Services", "Projects", "Contact"];
+// src/lib/data.ts
+export const NAV_LINKS = ["Home", "About", "Experience", "Stack", "Services", "Projects", "Contact"]; 

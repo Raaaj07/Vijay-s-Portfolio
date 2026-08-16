@@ -39,6 +39,7 @@ export default function ProjectDetail({
         <motion.div {...fadeUp(0)}>
           <Link
             href="/#projects"
+            scroll={false}
             className="inline-flex items-center gap-2 text-sm text-[var(--text-dark-muted)] hover:text-[var(--text-dark)] transition-colors"
           >
             <svg
