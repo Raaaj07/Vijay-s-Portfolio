@@ -70,7 +70,7 @@ export const SITE = {
   linkedin: "https://www.linkedin.com/in/vijay-raj-p2004/",
   github: "https://github.com/Raaaj07",
   // EDIT ME — add real profile photo to /public/profile.jpg and it will show automatically
-  profileImage: "/profile.jpg",
+  profileImage: "/profile.webp",
   // EDIT ME — add a real hosted PDF (e.g. /resume.pdf in /public, or a Drive link)
   resumeLink: "https://drive.google.com/file/d/110SbrWYpbpOmeKRPsqlpMr_o0BmnfmaH/view?usp=drive_link",
   bookingLink: "https://calendly.com/vijayrajvj07/30min"
