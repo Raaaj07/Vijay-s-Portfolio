@@ -264,7 +264,7 @@ export const PROJECTS: Project[] = [
       { step: "Search", detail: "Query keywords hashed to HMAC-SHA256 trapdoors server-side (never logged) → matched against the encrypted index → ranked by the ATEES algorithm." },
       { step: "Download", detail: "Permission check → AES-256 decrypt → zlib decompress → MD5 integrity verification → stream plaintext back to the client." },
     ],
-    live: "#", // EDIT ME — add a hosted demo URL if you deploy this, or link the IEEE paper here instead
+    live: "https://pmrse-final-project.onrender.com", // EDIT ME — add a hosted demo URL if you deploy this, or link the IEEE paper here instead
     github: "https://github.com/Raaaj07/PMRSE-FINAL-PROJECT",
   },
   {
